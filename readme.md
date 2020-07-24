@@ -9,7 +9,15 @@
 - vue自定义指令，[vue自定义指令官网](https://cn.vuejs.org/v2/guide/custom-directive.html)
 - IntersectionObserver实现元素视窗观测，[Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API)
 
-### 二、代码实现
+### 二、目录结构
+- `index.js`: 指令定义入口文件
+- `exposure.js`: 曝光类封装
+- `click.js`: 点击类封装
+- `config.js`: 上报配置文件，主要是一些服务器配置
+- `fetch.js`: axios上报封装，主要用于公共参数封装
+- `sendData.js`: 点击类和曝光类调用上报事件
+
+### 三、代码实现
 - 创建指令
 这里我们计划创建`v-track`指令，创建代码如下：
 ```javascript
@@ -226,7 +234,7 @@ export default {
 
 ```
 
-### 三、使用
+### 四、使用
 - 引入全局指令
 ```javascript
 // main.js
@@ -240,15 +248,21 @@ import './directives/track'
 
 // 点击事件带参数
 <div v-track:click :track-params="12455"></div>
+<div v-track:click :track-params="{id: 123}"></div>
+<div v-track:click :track-params="item.data"></div> // 循环，item为循环对象
 
 // 曝光事件
 <div v-track:exposure></div>
 
 // 曝光事件带参数
 <div v-track:exposure :track-params="12455"></div>
+<div v-track:exposure :track-params="{id: 123}"></div>
+<div v-track:exposure :track-params="item.data"></div> // 循环，item为循环对象
 
 // 曝光事件并点击带参数
 <div v-track:click|exposure :track-params="12455"></div>
+<div v-track:click|exposure :track-params="{id: 123}"></div>
+<div v-track:click|exposure :track-params="item.data"></div> // 循环，item为循环对象
 ```
 
 以上，记录vue项目如何进行声明式埋点，不足之处望指正，不喜勿喷！
