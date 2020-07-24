@@ -94,7 +94,7 @@ export default class Exposure {
           } else {
             self.storeIntoLocalStorage(self.cacheDataArr)
             if (self.cacheDataArr.length > 0) {
-              // 没2秒上报一次
+              // 2秒上报一次
               self._timer = setInterval(function() {
                 self.track()
               }, 2000)
